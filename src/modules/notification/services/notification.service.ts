@@ -102,7 +102,8 @@ export default class NotificationService {
         },
       })
       .toPromise()
-      .then(async () => {
+      .then(async (data) => {
+        console.log(data);
         await this.repoService.notificationLogRepo.save({
           transaction_id: transaction.id,
           status: true,
@@ -116,9 +117,10 @@ export default class NotificationService {
           error_message: JSON.stringify(err.message ?? err.response),
         });
         // Retry
-        setTimeout(function () {
-          this.merchantNotification(transaction, timestamp);
-        }, 1000);
+        setTimeout(
+          () => this.merchantNotification(transaction, timestamp),
+          10000,
+        );
       });
   }
 }
