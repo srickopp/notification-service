@@ -7,7 +7,6 @@ import { MerchantNotificationReq } from 'src/modules/dto/merchant-request.dto';
 import { PartnerCallbackReq } from 'src/modules/dto/partner-callback.dto';
 import RepoService from '../../../models/repo.service';
 import { HttpService } from '@nestjs/axios';
-import { json } from 'express';
 
 @Injectable()
 export default class NotificationService {
