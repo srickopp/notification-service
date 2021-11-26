@@ -1,15 +1,10 @@
 import * as request from 'supertest';
 import { INestApplication } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
-
 import MerchantService from '../src/modules/notification/services/merchant.service';
 import NotificationService from '../src/modules/notification/services/notification.service';
-
-import { TypeOrmModule } from '@nestjs/typeorm';
-import ormconfig from '../src/ormconfig';
 import { Merchant } from '../src/models/entities/merchant.entity';
 import { Transaction } from '../src/models/entities/transaction.entity';
-import { AppModule } from '../src/app.module';
 import { NotificationController } from '../src/modules/notification/notification.controller';
 
 describe('Notification', () => {
