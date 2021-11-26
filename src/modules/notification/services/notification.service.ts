@@ -55,13 +55,7 @@ export default class NotificationService {
       };
     }
 
-    if (transaction.status == TransactionStatus.SUCCESS) {
-      return {
-        statusCode: 200,
-        message: 'TRANSACTION_SUCCESS',
-      };
-    } else {
-      // Give notification to the merchant
+    if (transaction.status != TransactionStatus.SUCCESS) {
       const timestamp = new Date();
       await this.repoService.transactionRepo.update(
         {
@@ -72,15 +66,13 @@ export default class NotificationService {
           updated_at: timestamp,
         },
       );
-
       this.merchantNotification(transaction, timestamp);
-      return {
-        statusCode: 200,
-        message: TransactionStatus.PENDING
-          ? 'PENDING_TRANSACTION'
-          : 'FAILED_TRANSACTION',
-      };
     }
+
+    return {
+      statusCode: 200,
+      message: 'TRANSACTION_SUCCESS',
+    };
   }
 
   private async merchantNotification(
