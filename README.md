@@ -1,5 +1,5 @@
 ## Description
-This Project is to complete Xendit Software Engineer Techical Test.
+Project about notification service with the Unit Test
 
 ## Installation
 
@@ -14,31 +14,14 @@ To run the migration file you can run this command.
 ```bash
 # Migration
 $ npm run typeorm:migration:run
-
-# Seed
-$ npm run typeorm:seed:run
-```
-
-Using Docker
-```bash
-# Migration & Seed
-$ docker-compose exec main npm run typeorm:migration:run && npm run typeorm:seed:run
 ```
 
 ## Running the Application
-
-If you're using docker, you can try to run this command
-
 ```bash
 $ npm run start:dev
 ```
 
-```bash
-$ docker-compose up -d
-```
-
 ## Documentation
 For the swagger documentation is in `/docs`.
-
 ## Stay in touch
 Author - [SamueL Ricko Perdana Putra](https://www.linkedin.com/in/samuelricko/)
