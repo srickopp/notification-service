@@ -102,8 +102,7 @@ export default class NotificationService {
         },
       })
       .toPromise()
-      .then(async (data) => {
-        console.log(data);
+      .then(async () => {
         await this.repoService.notificationLogRepo.save({
           transaction_id: transaction.id,
           status: true,
