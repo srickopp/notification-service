@@ -110,7 +110,9 @@ export default class NotificationService {
         });
       })
       .catch(async (err) => {
-        console.log(`Failed post to merchant ID ${transaction.merchant_id}`);
+        console.log(
+          `Failed post to merchant, Merchant ID:${transaction.merchant_id}, Transaction ID: ${transaction.id}`,
+        );
         await this.repoService.notificationLogRepo.save({
           transaction_id: transaction.id,
           status: false,
