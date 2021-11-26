@@ -32,7 +32,7 @@ export default class NotificationService {
       return {
         statusCode: 200,
         message: 'TRANSACTION_SUCCESS',
-        transaction,
+        data: transaction,
       };
     } else {
       return {
