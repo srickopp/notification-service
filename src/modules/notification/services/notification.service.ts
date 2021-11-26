@@ -95,32 +95,30 @@ export default class NotificationService {
     const merchantUrl = transaction.merchant.callback_url;
     const merchantKey = transaction.merchant.api_key;
 
-    try {
-      await this.httpService
-        .post(merchantUrl, payload, {
-          headers: {
-            Authorization: 'Bearer ' + merchantKey,
-          },
-        })
-        .toPromise();
-
-      // Save to logs
-      await this.repoService.notificationLogRepo.save({
-        transaction_id: transaction.id,
-        status: true,
-        error_message: null,
+    await this.httpService
+      .post(merchantUrl, payload, {
+        headers: {
+          Authorization: 'Bearer ' + merchantKey,
+        },
+      })
+      .toPromise()
+      .then(async () => {
+        await this.repoService.notificationLogRepo.save({
+          transaction_id: transaction.id,
+          status: true,
+        });
+      })
+      .catch(async (err) => {
+        console.log(`Failed post to merchant ID ${transaction.merchant_id}`);
+        await this.repoService.notificationLogRepo.save({
+          transaction_id: transaction.id,
+          status: false,
+          error_message: JSON.stringify(err.message ?? err.response),
+        });
+        // Retry
+        setTimeout(function () {
+          this.merchantNotification(transaction, timestamp);
+        }, 1000);
       });
-    } catch (error) {
-      console.log(`Failed post to merchant ID ${transaction.merchant_id}`);
-      await this.repoService.notificationLogRepo.save({
-        transaction_id: transaction.id,
-        status: false,
-        error_message: JSON.stringify(error),
-      });
-      // Retry
-      setTimeout(function () {
-        this.merchantNotification(transaction, timestamp);
-      }, 1000);
-    }
   }
 }

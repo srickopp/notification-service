@@ -32,7 +32,7 @@ export class NotificationLog extends BaseEntity {
   @Column({
     length: 255,
     type: 'varchar',
-    nullable: false,
+    nullable: true,
   })
   error_message: string;
 
