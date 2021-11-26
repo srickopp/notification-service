@@ -7,6 +7,7 @@ import { MerchantNotificationReq } from 'src/modules/dto/merchant-request.dto';
 import { PartnerCallbackReq } from 'src/modules/dto/partner-callback.dto';
 import RepoService from '../../../models/repo.service';
 import { HttpService } from '@nestjs/axios';
+import { json } from 'express';
 
 @Injectable()
 export default class NotificationService {
@@ -103,8 +104,20 @@ export default class NotificationService {
           },
         })
         .toPromise();
+
+      // Save to logs
+      await this.repoService.notificationLogRepo.save({
+        transaction_id: transaction.id,
+        status: true,
+        error_message: null,
+      });
     } catch (error) {
       console.log(`Failed post to merchant ID ${transaction.merchant_id}`);
+      await this.repoService.notificationLogRepo.save({
+        transaction_id: transaction.id,
+        status: false,
+        error_message: JSON.stringify(error),
+      });
       // Retry
       setTimeout(function () {
         this.merchantNotification(transaction, timestamp);

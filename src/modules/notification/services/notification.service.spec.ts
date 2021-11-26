@@ -5,6 +5,7 @@ import { Transaction } from 'src/models/entities/transaction.entity';
 import { NotificationLog } from 'src/models/entities/notification-log.entity';
 import NotificationService from './notification.service';
 import { PartnerCallbackReq } from 'src/modules/dto/partner-callback.dto';
+import { HttpService } from '@nestjs/axios';
 
 describe('Notification Service', () => {
   const notificationService = new NotificationService(
@@ -13,6 +14,7 @@ describe('Notification Service', () => {
       new Repository<Transaction>(),
       new Repository<NotificationLog>(),
     ),
+    new HttpService(),
   );
 
   describe('Function: Manual retry notification by merchant', () => {
