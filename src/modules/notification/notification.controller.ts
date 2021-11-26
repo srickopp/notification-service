@@ -30,7 +30,7 @@ export class NotificationController {
   }
 
   @ApiTags('Notification Service')
-  @Post('/merchant/transaction')
+  @Post('/transaction/retry')
   async manualNotifcationPayment(
     @Body() body: ManualRetry,
     @Res() res: Response,
@@ -60,7 +60,7 @@ export class NotificationController {
 
   @ApiTags('Merchant')
   @Put('/merchant/:id/callback')
-  async edit(
+  async editMerchantCallback(
     @Param('id') id: string,
     @Body() body: EditCallback,
     @Res() res: Response,
