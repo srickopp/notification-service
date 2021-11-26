@@ -34,7 +34,7 @@ export default class MerchantService {
       return {
         statusCode: 200,
         message: 'SUCCESS',
-        data: await this.repoService.merchantRepo.findOne(),
+        data: await this.repoService.merchantRepo.findOne({ id: merchantId }),
       };
     } catch (error) {
       return {
@@ -46,7 +46,7 @@ export default class MerchantService {
   }
 
   async updateMerchantCallbackUrl(merchantId: string, callbackUrl: string) {
-    const merchant = await this.repoService.merchantRepo.find({
+    const merchant = await this.repoService.merchantRepo.findOne({
       id: merchantId,
     });
 
@@ -71,7 +71,7 @@ export default class MerchantService {
       return {
         statusCode: 200,
         message: 'SUCCESS',
-        data: await this.repoService.merchantRepo.findOne(),
+        data: await this.repoService.merchantRepo.findOne({ id: merchantId }),
       };
     } catch (error) {
       return {

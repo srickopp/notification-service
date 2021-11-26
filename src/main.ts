@@ -5,7 +5,7 @@ import { AppModule } from './app.module';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const config = new DocumentBuilder()
-    .setTitle('Organizations')
+    .setTitle('Notification Service')
     .setDescription(
       'Simple application with unit testing using NestJS Framework',
     )

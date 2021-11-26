@@ -1,14 +1,11 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-export class MerchantNotifaction {
+export class MerchantNotificationReq {
   @ApiProperty()
   id: string;
 
   @ApiProperty()
   business_id: string;
-
-  @ApiProperty()
-  merchant_end_customer_id: string;
 
   @ApiProperty()
   partner_trx_id: string;

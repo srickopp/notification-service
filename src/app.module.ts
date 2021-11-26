@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { OrganizationModule } from './modules/organization/organization.module';
+import { NotificationModule } from './modules/notification/notification.module';
 import ormconfig from './ormconfig';
 @Module({
-  imports: [TypeOrmModule.forRoot(ormconfig), OrganizationModule],
+  imports: [TypeOrmModule.forRoot(ormconfig), NotificationModule],
   controllers: [],
   providers: [],
 })

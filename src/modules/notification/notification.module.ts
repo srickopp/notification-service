@@ -12,4 +12,4 @@ dotenv.config();
   controllers: [NotificationController],
   providers: [NotificationService, MerchantService],
 })
-export class OrganizationModule {}
+export class NotificationModule {}
