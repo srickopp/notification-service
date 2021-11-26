@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import {
   Transaction,
   TransactionStatus,
-} from 'src/models/entities/transaction.entity';
+} from '../../../models/entities/transaction.entity';
 import { MerchantNotificationReq } from 'src/modules/dto/merchant-request.dto';
 import { PartnerCallbackReq } from 'src/modules/dto/partner-callback.dto';
 import RepoService from '../../../models/repo.service';
