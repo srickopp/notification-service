@@ -73,7 +73,7 @@ export default class NotificationService {
         },
       );
 
-      this.merchantNotification(transaction, timestamp, data);
+      this.merchantNotification(transaction, timestamp);
       return {
         statusCode: 200,
         message: TransactionStatus.PENDING
@@ -86,7 +86,6 @@ export default class NotificationService {
   private async merchantNotification(
     transaction: Transaction,
     timestamp: Date,
-    data: PartnerCallbackReq,
   ) {
     // Merchant Request payload format
     const payload: MerchantNotificationReq = {
