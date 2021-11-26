@@ -6,10 +6,14 @@ import {
 import { MerchantNotificationReq } from 'src/modules/dto/merchant-request.dto';
 import { PartnerCallbackReq } from 'src/modules/dto/partner-callback.dto';
 import RepoService from '../../../models/repo.service';
+import { HttpService } from '@nestjs/axios';
 
 @Injectable()
 export default class NotificationService {
-  public constructor(private readonly repoService: RepoService) {}
+  public constructor(
+    private readonly repoService: RepoService,
+    private readonly httpService: HttpService,
+  ) {}
 
   async manualNotifcationPayment(transactionId: string) {
     const transaction = await this.repoService.transactionRepo.findOne({
@@ -91,8 +95,20 @@ export default class NotificationService {
     const merchantUrl = transaction.merchant.callback_url;
     const merchantKey = transaction.merchant.api_key;
 
-    console.log(payload);
-
-    // make request
+    try {
+      await this.httpService
+        .post(merchantUrl, payload, {
+          headers: {
+            Authorization: 'Bearer ' + merchantKey,
+          },
+        })
+        .toPromise();
+    } catch (error) {
+      console.log(`Failed post to merchant ID ${transaction.merchant_id}`);
+      // Retry
+      setTimeout(function () {
+        this.merchantNotification(transaction, timestamp);
+      }, 1000);
+    }
   }
 }
